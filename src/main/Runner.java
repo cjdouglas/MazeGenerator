@@ -3,15 +3,21 @@ package main;
 import java.util.ArrayList;
 
 import generator.Wall;
-import maze.Maze;
+import maze.MazeGenerator;
 
 public class Runner {
 	public static void main(String[] args) {
-		Maze maze = new Maze(4);
-		maze.generate();
+		MazeGenerator mazeGenerator = new MazeGenerator(5);
 		
-		ArrayList<Wall> walls = maze.getWalls();
+		ArrayList<Wall> walls = mazeGenerator.getMSTWalls();		
+		for (Wall w : walls) {
+			System.out.println(w);
+		}
 		
+		System.out.println("\n");
+		
+		mazeGenerator.rebuild(4);
+		walls = mazeGenerator.getMSTWalls();
 		for (Wall w : walls) {
 			System.out.println(w);
 		}

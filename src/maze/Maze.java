@@ -1,28 +1,20 @@
 package maze;
 
 import java.util.ArrayList;
-import java.util.Random;
 
-import generator.WeightedQuickUnion;
 import generator.Wall;
 
 public class Maze {
-	private WeightedQuickUnion wqu;
-	private int size;
-	
+	private int size;	
 	private ArrayList<Wall> walls;
-	private Random gen;
 	
 	/**
 	 * Initializer for a Maze with a given size
 	 * @param N The size for the Maze, N x N
 	 */
 	public Maze(int N) {
-		wqu = new WeightedQuickUnion(N * N);
-		size = N;
-		
+		size = N;		
 		walls = new ArrayList<>();
-		gen = new Random();
 		
 		createWalls();
 	}
@@ -52,27 +44,23 @@ public class Maze {
 	}
 	
 	/**
-	 * Generates a maze based on the given size
+	 * Removes a wall from the given index
+	 * @param index
 	 */
-	public void generate() {
-		System.out.println(walls.size());
-		
-		ArrayList<Wall> temp = getWalls();
-		
-		while (wqu.size() > 1) {			
-			int index = gen.nextInt(temp.size());
-			Wall wall = temp.get(index); // Wall which we will remove and union
-			
-			int u = wqu.find(wall.x());
-			int v = wqu.find(wall.y());
-			
-			if (wqu.find(u) != wqu.find(v)) {
-				wqu.union(u, v);
-				walls.remove(index);
-			}
-		}
+	public void removeWall(int index) {
+		walls.remove(index);
 	}
 	
+	/**
+	 * Rebuilds this maze to be N x N
+	 * @param N Dimension of the maze to rebuild
+	 */
+	public void rebuild(int N) {
+		walls.clear();
+		size = N;
+		createWalls();
+	}
+		
 	/**
 	 * Returns the list of Walls
 	 * @return The list of Walls
