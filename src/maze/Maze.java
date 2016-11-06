@@ -42,8 +42,10 @@ public class Maze {
 					if (j != size - 1) {
 						walls.add(new Wall(offset + j, offset + j + 1));
 					}
-				} else {
-					walls.add(new Wall(offset + j, offset + j + 1));
+				} else {					
+					if (j != size - 1) {
+						walls.add(new Wall(offset + j, offset + j + 1));
+					}
 				}
 			}
 		}
@@ -53,12 +55,21 @@ public class Maze {
 	 * Generates a maze based on the given size
 	 */
 	public void generate() {
+		System.out.println(walls.size());
+		
+		ArrayList<Wall> temp = getWalls();
+		
 		while (wqu.size() > 1) {			
-			int index = gen.nextInt(walls.size());
-			Wall wall = walls.get(index); // Wall which we will remove and union
-			walls.remove(index);
+			int index = gen.nextInt(temp.size());
+			Wall wall = temp.get(index); // Wall which we will remove and union
 			
-			wqu.union(wall.x(), wall.y());
+			int u = wqu.find(wall.x());
+			int v = wqu.find(wall.y());
+			
+			if (wqu.find(u) != wqu.find(v)) {
+				wqu.union(u, v);
+				walls.remove(index);
+			}
 		}
 	}
 	

@@ -37,6 +37,10 @@ public class WeightedQuickUnion {
 		return i;
 	}
 	
+	public int find(int index) {
+		return root(index);
+	}
+	
 	/**
 	 * Combines the connect components for the given nodes by attaching
 	 * the smaller tree as a child of the larger tree's parent
