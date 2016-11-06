@@ -7,11 +7,11 @@ import generator.WeightedQuickUnion;
 import generator.Wall;
 
 public class Maze {
-	WeightedQuickUnion wqu;
-	int size;
+	private WeightedQuickUnion wqu;
+	private int size;
 	
-	ArrayList<Wall> walls;
-	Random gen;
+	private ArrayList<Wall> walls;
+	private Random gen;
 	
 	/**
 	 * Initializer for a Maze with a given size
