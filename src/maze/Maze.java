@@ -34,7 +34,7 @@ public class Maze {
 	private void createWalls() {
 		for (int i = 0; i < size; i++) {
 			
-			int offset = i * size + 1;			
+			int offset = i * size;			
 			for (int j = 0; j < size; j++) {
 				
 				if (i != size - 1) {
@@ -43,7 +43,7 @@ public class Maze {
 						walls.add(new Wall(offset + j, offset + j + 1));
 					}
 				} else {
-					walls.add(new Wall(offset + j, offset + j + size));
+					walls.add(new Wall(offset + j, offset + j + 1));
 				}
 			}
 		}
@@ -60,5 +60,13 @@ public class Maze {
 			
 			wqu.union(wall.x(), wall.y());
 		}
+	}
+	
+	/**
+	 * Returns the list of Walls
+	 * @return The list of Walls
+	 */
+	public ArrayList<Wall> getWalls() {
+		return walls;
 	}
 }

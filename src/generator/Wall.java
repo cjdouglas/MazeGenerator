@@ -29,4 +29,12 @@ public class Wall {
 	public int y() {
 		return y;
 	}
+	
+	/**
+	 * Returns a String representation of this Wall object
+	 * @return String representation of this Wall object
+	 */
+	public String toString() {
+		return x + " -> " + y;
+	}
 }
