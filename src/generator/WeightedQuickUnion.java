@@ -7,16 +7,16 @@ public class WeightedQuickUnion {
 	
 	/**
 	 * Initializer for WeightedQuickUnion with a given number of elements
-	 * @param N The width and height of the maze to generate, N x N
+	 * @param N The number of nodes to associate with this WeightedQuickUnion
 	 */
 	public WeightedQuickUnion(int N) {
-		id = new int[N * N];
-		size = new int[N * N];
-		uSize = N * N;
+		id = new int[N];
+		size = new int[N];
+		uSize = N;
 
 		// Initialize each square with its own unique id and size of 1
 		
-		for (int i = 0; i < N * N; i++) {
+		for (int i = 0; i < N; i++) {
 			id[i] = i;
 			size[i] = 1;
 		}
