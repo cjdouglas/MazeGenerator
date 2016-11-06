@@ -3,6 +3,7 @@ package generator;
 public class WeightedQuickUnion {
 	private int[] id;
 	private int[] size;
+	private int uSize;
 	
 	/**
 	 * Initializer for WeightedQuickUnion with a given number of elements
@@ -11,6 +12,7 @@ public class WeightedQuickUnion {
 	public WeightedQuickUnion(int N) {
 		id = new int[N * N];
 		size = new int[N * N];
+		uSize = N * N;
 
 		// Initialize each square with its own unique id and size of 1
 		
@@ -56,6 +58,7 @@ public class WeightedQuickUnion {
 			id[j] = id[i];
 			size[i] += size[j];
 		}
+		uSize--; 
 	}
 	
 	/**
@@ -66,5 +69,13 @@ public class WeightedQuickUnion {
 	 */
 	public boolean connected(int firstNode, int secondNode) {
 		return id[firstNode] == id[secondNode];
+	}
+	
+	/**
+	 * Returns the size of this WeightedQuickUnion
+	 * @return The Size of this WeightedQuickUnion
+	 */
+	public int size() {
+		return uSize;
 	}
 }
