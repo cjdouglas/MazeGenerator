@@ -2,8 +2,6 @@ package maze;
 
 import java.util.ArrayList;
 
-import generator.Wall;
-
 public class Maze {
 	private int size;	
 	private ArrayList<Wall> walls;

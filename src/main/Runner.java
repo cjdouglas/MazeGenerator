@@ -2,8 +2,8 @@ package main;
 
 import java.util.ArrayList;
 
-import generator.Wall;
-import maze.MazeGenerator;
+import generator.MazeGenerator;
+import maze.Wall;
 
 public class Runner {
 	public static void main(String[] args) {

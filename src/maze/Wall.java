@@ -1,4 +1,4 @@
-package generator;
+package maze;
 
 public class Wall {
 	private int x;

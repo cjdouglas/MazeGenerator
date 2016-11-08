@@ -1,23 +1,20 @@
-package maze;
+package generator;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-import generator.Wall;
-import generator.WeightedQuickUnion;
 import maze.Maze;
+import maze.Wall;
 
 public class MazeGenerator {
 	private Maze maze;
 	private WeightedQuickUnion wqu;
-	private int size;
 	
 	private Random gen;
 	
 	public MazeGenerator(int N) {
 		maze = new Maze(N);
 		wqu = new WeightedQuickUnion(N * N);
-		size = N;
 		
 		gen = new Random();
 		
