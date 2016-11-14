@@ -12,11 +12,15 @@ public class MazeGenerator {
 	
 	private Random gen;
 	
+	private int size;
+	
 	public MazeGenerator(int N) {
 		maze = new Maze(N);
 		wqu = new WeightedQuickUnion(N * N);
 		
 		gen = new Random();
+		
+		size = N;
 		
 		generate();
 	}
@@ -46,6 +50,7 @@ public class MazeGenerator {
 	 * @param N Dimension of the maze to rebuild
 	 */
 	public void rebuild(int N) {
+		size = N;
 		maze.rebuild(N);
 		wqu = new WeightedQuickUnion(N * N);
 		generate();
@@ -59,5 +64,13 @@ public class MazeGenerator {
 	 */
 	public ArrayList<Wall> getMSTWalls() {
 		return maze.getWalls();
+	}
+	
+	/**
+	 * Returns the size of the maze this generator is currently generating
+	 * @return The size of the maze this generator is currently generating
+	 */
+	public int getSize() {
+		return size;
 	}
 }

@@ -66,4 +66,12 @@ public class Maze {
 	public ArrayList<Wall> getWalls() {
 		return walls;
 	}
+	
+	/**
+	 * Returns the size of this maze
+	 * @return The size of this maze
+	 */
+	public int getSize() {
+		return size;
+	}
 }

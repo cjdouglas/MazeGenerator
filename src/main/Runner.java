@@ -2,23 +2,13 @@ package main;
 
 import java.util.ArrayList;
 
-import maze.MazeVisualizer;
-
 import generator.MazeGenerator;
 import maze.Wall;
+import visualizer.MazeVisualizer;
 
 public class Runner {
 	public static void main(String[] args) {
-		MazeGenerator mazeGenerator = new MazeGenerator(4);
-		
-		ArrayList<Wall> walls = mazeGenerator.getMSTWalls();
-		for (Wall w : walls) {
-			System.out.println(w);
-		}
-		
-		System.out.println("\n");
-		
-		MazeVisualizer v = new MazeVisualizer();
+		MazeVisualizer v = new MazeVisualizer(5);
 		v.run();
 		
 		/*
