@@ -17,6 +17,9 @@ public class MazeVisualizer {
 	private int size;
 	private int gridSize;
 	
+	private JFrame mainFrame;
+	private JPanel mazeDisplay;
+	
 	public MazeVisualizer(Maze maze) {
 		this.maze = maze;
 		size = maze.getSize();
@@ -24,10 +27,26 @@ public class MazeVisualizer {
 		
 		cells = new boolean[gridSize][gridSize];
 		
-		setup();
+		mainFrame = new JFrame();
+		mazeDisplay = new JPanel();
+		
+		initializeUI();
+		initializeGrid();
+	}
+		
+	/**
+	 * Initializes the main components of the user interface
+	 */
+	private void initializeUI() {
+		mainFrame.setSize(750,  750);
+		mainFrame.setResizable(false);
+		mainFrame.setLocationRelativeTo(null);
 	}
 	
-	private void setup() {
+	/**
+	 * Initializes the outer border of the grid to be obstacle cells
+	 */
+	private void initializeGrid() {
 		
 		// Initialize outer wall to be an obstacle
 		
@@ -38,7 +57,12 @@ public class MazeVisualizer {
 			cells[i][0] = true;
 			cells[gridSize - 1][i] = true;
 		}
-		
-		
+	}
+	
+	/**
+	 * Starts the simulation
+	 */
+	public void run() {
+		mainFrame.setVisible(true);
 	}
 }
