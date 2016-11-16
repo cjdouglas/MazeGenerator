@@ -8,6 +8,7 @@ import javax.swing.*;
 
 import generator.MazeGenerator;
 import maze.Maze;
+import maze.Wall;
 
 public class MazeVisualizer {
 	
@@ -18,7 +19,7 @@ public class MazeVisualizer {
 	private int gridSize;
 	
 	private JFrame mainFrame;
-	private JPanel mazeDisplay;
+	private MazePanel mazeDisplay;
 	
 	public MazeVisualizer(Maze maze) {
 		this.maze = maze;
@@ -26,12 +27,13 @@ public class MazeVisualizer {
 		gridSize = 2 * size + 1;
 		
 		cells = new boolean[gridSize][gridSize];
+		initializeGrid();
 		
 		mainFrame = new JFrame();
-		mazeDisplay = new JPanel();
+		mazeDisplay = new MazePanel(size, size, cells);
+		
 		
 		initializeUI();
-		initializeGrid();
 	}
 		
 	/**
@@ -41,6 +43,8 @@ public class MazeVisualizer {
 		mainFrame.setSize(750,  750);
 		mainFrame.setResizable(false);
 		mainFrame.setLocationRelativeTo(null);
+		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		mainFrame.add(mazeDisplay);
 	}
 	
 	/**
@@ -55,7 +59,44 @@ public class MazeVisualizer {
 			cells[gridSize - 1][i] = true;
 			
 			cells[i][0] = true;
-			cells[gridSize - 1][i] = true;
+			cells[i][gridSize - 1] = true;
+		}
+		
+		
+		// Entrance and exit to remain open
+		cells[1][0] = false;
+		cells[gridSize - 2][gridSize - 1] = false;
+		
+		for (Wall w : maze.getWalls()) {
+			int row = (w.x() - 1) / 4;
+			int col = (w.x() - 1) % 4;
+			
+			int actualRow = row * 2 + 1;
+			int actualCol = col * 2 + 1;
+			
+			// Fill in edge here
+			int xRow = (w.x() - 1) / 4;
+			int xCol = (w.x() - 1) % 4;
+			int xActualRow = xRow * 2 + 1;
+			int xActualCol = xCol * 2 + 1;
+			
+			int yRow = (w.y() - 1) / 4;
+			int yCol = (w.y() - 1) % 4;
+			int yActualRow = yRow * 2 + 1;
+			int yActualCol = yCol * 2 + 1;
+			
+			int rowOffset = yActualRow - xActualRow;
+			int colOffset = yActualCol - xActualCol;
+			
+			if (rowOffset != 0) {
+				cells[xActualRow - rowOffset][xActualCol + 1] = true;
+				cells[xActualRow][xActualCol + 1] = true;
+				cells[xActualRow + rowOffset][xActualCol + 1] = true;
+			} else if (colOffset != 0) {
+				cells[xActualRow + 1][xActualCol - colOffset] = true;
+				cells[xActualRow + 1][xActualCol] = true;
+				cells[xActualRow + 1][xActualCol + colOffset] = true;
+			}
 		}
 	}
 	

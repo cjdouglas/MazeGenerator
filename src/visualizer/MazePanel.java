@@ -13,13 +13,15 @@ public class MazePanel extends JPanel {
 	
 	private int rows;
 	private int cols;
-
-	private ArrayList<Rectangle> cells;
 	
-	public MazePanel(int rows, int cols) {
+	private boolean[][] obstacles;
+	private ArrayList<CJRectangle> cells;
+	
+	public MazePanel(int rows, int cols, boolean[][] obstacles) {
 		this.rows = rows;
 		this.cols = cols;
 		
+		this.obstacles = obstacles;
 		cells = new ArrayList<>();
 	}
 	
@@ -41,13 +43,25 @@ public class MazePanel extends JPanel {
         int offsetY = (height - (gridCols * cellHeight)) / 2;
         
         for (int i = 0; i < gridRows; i++) {
-        	for (int j = 0; j < gridCols * 2 + 1; j++) {
-        		cells.add(new Rectangle(offsetX + (i * cellWidth), offsetY + (j * cellHeight), cellWidth, cellHeight));
+        	for (int j = 0; j < gridCols; j++) {
+        		CJRectangle rect = new CJRectangle(offsetX + (i * cellWidth), offsetY + (j * cellHeight), 
+        				cellWidth, cellHeight);
+        		
+        		if (obstacles[i][j]) {
+        			rect.setColor(Color.BLACK);
+        		} else {
+        			rect.setColor(Color.WHITE);
+        		}
+        		
+        		cells.add(rect);
         	}
         }
         
-        g2d.setColor(Color.BLUE);
-        for (Rectangle rect : cells) {
+        for (CJRectangle rect : cells) {
+        	g2d.setColor(rect.getColor());
+        	g2d.fillRect(rect.x, rect.y, rect.width, rect.height);
+        	
+        	g2d.setColor(Color.BLACK);
         	g2d.drawRect(rect.x, rect.y, rect.width, rect.height);
         }
         
