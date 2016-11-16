@@ -10,17 +10,14 @@ import visualizer.MazeVisualizer;
 public class Runner {
 	public static void main(String[] args) {
 		
-		Maze maze = new Maze(5);
+		MazeGenerator gen = new MazeGenerator(4);
+		gen.generate();
 		
-		MazeVisualizer v = new MazeVisualizer(maze);
+		MazeVisualizer v = new MazeVisualizer(gen.getMaze());
 		v.run();
 		
-		/*
-		mazeGenerator.rebuild(4);
-		walls = mazeGenerator.getMSTWalls();
-		for (Wall w : walls) {
+		for (Wall w : gen.getMaze().getWalls()) {
 			System.out.println(w);
 		}
-		*/
 	}
 }
