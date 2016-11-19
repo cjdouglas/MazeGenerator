@@ -40,7 +40,7 @@ public class MazeVisualizer {
 	 * Initializes the main components of the user interface
 	 */
 	private void initializeUI() {
-		mainFrame.setSize(750,  750);
+		mainFrame.setSize(750, 750);
 		mainFrame.setResizable(false);
 		mainFrame.setLocationRelativeTo(null);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -49,7 +49,11 @@ public class MazePanel extends JPanel {
         		CJRectangle rect = new CJRectangle(offsetX + (i * cellWidth), offsetY + (j * cellHeight), 
         				cellWidth, cellHeight);
         		
-        		if (obstacles[i][j]) {
+        		if (i == 1 && j == 0) {
+        			rect.setColor(Color.GREEN);
+        		} else if (i == gridRows - 2 && j == gridCols - 1) {
+        			rect.setColor(Color.RED);
+        		} else if (obstacles[i][j]) {
         			rect.setColor(Color.BLACK);
         		} else {
         			rect.setColor(Color.WHITE);
