@@ -27,7 +27,7 @@ public class MazeVisualizer {
 		gridSize = 2 * size + 1;
 		
 		cells = new boolean[gridSize][gridSize];
-		initializeGrid();
+		buildMaze();
 		
 		mainFrame = new JFrame();
 		mazeDisplay = new MazePanel(size, size, cells);
@@ -50,7 +50,7 @@ public class MazeVisualizer {
 	/**
 	 * Initializes the outer border of the grid to be obstacle cells
 	 */
-	private void initializeGrid() {
+	private void buildMaze() {
 		
 		// Initialize outer wall to be an obstacle
 		
@@ -93,6 +93,13 @@ public class MazeVisualizer {
 		// Entrance and exit to remain open
 		cells[1][0] = false;
 		cells[gridSize - 2][gridSize - 1] = false;
+	}
+	
+	/**
+	 * Solves the maze and sends the path to the visualizer
+	 */
+	private void solve() {
+		// TODO
 	}
 	
 	/**
