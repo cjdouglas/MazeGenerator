@@ -11,6 +11,8 @@ import javax.swing.JPanel;
 
 public class MazePanel extends JPanel {
 	
+	private static final Color hawkeyes = new Color(253, 210, 18, 255);
+	
 	private int rows;
 	private int cols;
 	
@@ -61,8 +63,8 @@ public class MazePanel extends JPanel {
         	g2d.setColor(rect.getColor());
         	g2d.fillRect(rect.x, rect.y, rect.width, rect.height);
         	
-        	g2d.setColor(Color.BLACK);
-        	g2d.drawRect(rect.x, rect.y, rect.width, rect.height);
+        	//g2d.setColor(Color.BLACK);
+        	//g2d.drawRect(rect.x, rect.y, rect.width, rect.height);
         }
         
 	}

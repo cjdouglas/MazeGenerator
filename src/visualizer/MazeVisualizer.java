@@ -61,27 +61,17 @@ public class MazeVisualizer {
 			cells[i][0] = true;
 			cells[i][gridSize - 1] = true;
 		}
-		
-		
-		// Entrance and exit to remain open
-		cells[1][0] = false;
-		cells[gridSize - 2][gridSize - 1] = false;
-		
-		for (Wall w : maze.getWalls()) {
-			int row = (w.x() - 1) / 4;
-			int col = (w.x() - 1) % 4;
 			
-			int actualRow = row * 2 + 1;
-			int actualCol = col * 2 + 1;
+		for (Wall w : maze.getWalls()) {
 			
 			// Fill in edge here
-			int xRow = (w.x() - 1) / 4;
-			int xCol = (w.x() - 1) % 4;
+			int xRow = (w.x()) / size;
+			int xCol = (w.x()) % size;
 			int xActualRow = xRow * 2 + 1;
 			int xActualCol = xCol * 2 + 1;
 			
-			int yRow = (w.y() - 1) / 4;
-			int yCol = (w.y() - 1) % 4;
+			int yRow = (w.y()) / size;
+			int yCol = (w.y()) % size;
 			int yActualRow = yRow * 2 + 1;
 			int yActualCol = yCol * 2 + 1;
 			
@@ -89,15 +79,20 @@ public class MazeVisualizer {
 			int colOffset = yActualCol - xActualCol;
 			
 			if (rowOffset != 0) {
-				cells[xActualRow - rowOffset][xActualCol + 1] = true;
-				cells[xActualRow][xActualCol + 1] = true;
-				cells[xActualRow + rowOffset][xActualCol + 1] = true;
-			} else if (colOffset != 0) {
-				cells[xActualRow + 1][xActualCol - colOffset] = true;
+				cells[xActualRow + 1][xActualCol - 1] = true;
 				cells[xActualRow + 1][xActualCol] = true;
-				cells[xActualRow + 1][xActualCol + colOffset] = true;
+				cells[xActualRow + 1][xActualCol + 1] = true;
+			} else if (colOffset != 0) {
+				cells[xActualRow - 1][xActualCol + 1] = true;
+				cells[xActualRow][xActualCol + 1] = true;
+				cells[xActualRow + 1][xActualCol + 1] = true;
 			}
 		}
+		
+		
+		// Entrance and exit to remain open
+		cells[1][0] = false;
+		cells[gridSize - 2][gridSize - 1] = false;
 	}
 	
 	/**
