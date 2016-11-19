@@ -1,10 +1,6 @@
 package main;
 
-import java.util.ArrayList;
-
 import generator.MazeGenerator;
-import maze.Maze;
-import maze.Wall;
 import visualizer.MazeVisualizer;
 
 public class Runner {
