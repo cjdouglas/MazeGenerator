@@ -49,7 +49,7 @@ public class MazePanel extends JPanel {
 		int cellHeight = height / gridCols;
 		
 		int offsetX = (width - (gridRows * cellWidth)) / 2;
-        int offsetY = (height - (gridCols * cellHeight)) / 2;
+		int offsetY = (height - (gridCols * cellHeight)) / 2;
         
         for (int i = 0; i < gridRows; i++) {
         	for (int j = 0; j < gridCols; j++) {
