@@ -6,7 +6,7 @@ import visualizer.MazeVisualizer;
 public class Runner {
 	public static void main(String[] args) {
 		
-		MazeGenerator gen = new MazeGenerator(12);
+		MazeGenerator gen = new MazeGenerator(25);
 		gen.generate();
 		
 		MazeVisualizer v = new MazeVisualizer(gen.getMaze());

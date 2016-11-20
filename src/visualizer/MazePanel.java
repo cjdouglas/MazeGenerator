@@ -11,7 +11,8 @@ import javax.swing.JPanel;
 
 public class MazePanel extends JPanel {
 	
-	private static final Color hawkeyes = new Color(253, 210, 18, 255);
+	private static final Color HAWKS = new Color(253, 210, 18, 255);
+	private static final Color COOL_BLU = new Color(50, 100, 255);
 	
 	private int rows;
 	private int cols;
@@ -19,6 +20,12 @@ public class MazePanel extends JPanel {
 	private boolean[][] obstacles;
 	private ArrayList<CJRectangle> cells;
 	
+	/**
+	 * Constructor for MazePanel
+	 * @param rows the number of rows the maze has
+	 * @param cols the number of columns the maze has
+	 * @param obstacles a 2D array containing booleans representing whether a certain cell is open or not
+	 */
 	public MazePanel(int rows, int cols, boolean[][] obstacles) {
 		this.rows = rows;
 		this.cols = cols;
@@ -49,14 +56,14 @@ public class MazePanel extends JPanel {
         		CJRectangle rect = new CJRectangle(offsetX + (i * cellWidth), offsetY + (j * cellHeight), 
         				cellWidth, cellHeight);
         		
-        		if (i == 1 && j == 0) {
+        		if (i == 0 && j == 1) {
         			rect.setColor(Color.GREEN);
-        		} else if (i == gridRows - 2 && j == gridCols - 1) {
+        		} else if (i == gridRows - 1 && j == gridCols - 2) {
         			rect.setColor(Color.RED);
         		} else if (obstacles[i][j]) {
         			rect.setColor(Color.BLACK);
         		} else {
-        			rect.setColor(Color.WHITE);
+        			rect.setColor(COOL_BLU);
         		}
         		
         		cells.add(rect);
@@ -66,9 +73,6 @@ public class MazePanel extends JPanel {
         for (CJRectangle rect : cells) {
         	g2d.setColor(rect.getColor());
         	g2d.fillRect(rect.x, rect.y, rect.width, rect.height);
-        	
-        	//g2d.setColor(Color.BLACK);
-        	//g2d.drawRect(rect.x, rect.y, rect.width, rect.height);
         }
         
 	}
