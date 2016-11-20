@@ -91,8 +91,8 @@ public class MazeVisualizer {
 		
 		
 		// Entrance and exit to remain open
-		cells[1][0] = false;
-		cells[gridSize - 2][gridSize - 1] = false;
+		cells[0][1] = false;
+		cells[gridSize - 1][gridSize - 2] = false;
 	}
 	
 	/**

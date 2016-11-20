@@ -53,7 +53,7 @@ public class MazePanel extends JPanel {
         
         for (int i = 0; i < gridRows; i++) {
         	for (int j = 0; j < gridCols; j++) {
-        		CJRectangle rect = new CJRectangle(offsetX + (i * cellWidth), offsetY + (j * cellHeight), 
+        		CJRectangle rect = new CJRectangle(offsetX + (j * cellWidth), offsetY + (i * cellHeight), 
         				cellWidth, cellHeight);
         		
         		if (i == 0 && j == 1) {
