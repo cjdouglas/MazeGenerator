@@ -3,6 +3,7 @@ package visualizer;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.Rectangle;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class MazePanel extends JPanel {
 	
 	private boolean[][] obstacles;
 	private ArrayList<CJRectangle> cells;
+	private Point userLoc;
 	
 	/**
 	 * Constructor for MazePanel
@@ -32,6 +34,12 @@ public class MazePanel extends JPanel {
 		
 		this.obstacles = obstacles;
 		cells = new ArrayList<>();
+		userLoc = null;
+	}
+	
+	public void setUserLoc(Point p) {
+		userLoc = p;
+		repaint();
 	}
 	
 	@Override
@@ -64,6 +72,10 @@ public class MazePanel extends JPanel {
         			rect.setColor(Color.BLACK);
         		} else {
         			rect.setColor(COOL_BLU);
+        		}
+        		
+        		if (userLoc != null && i == userLoc.x && j == userLoc.y) {
+        			rect.setColor(Color.ORANGE);
         		}
         		
         		cells.add(rect);

@@ -3,6 +3,9 @@ package visualizer;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Point;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.*;
 
@@ -10,7 +13,7 @@ import generator.MazeGenerator;
 import maze.Maze;
 import maze.Wall;
 
-public class MazeVisualizer {
+public class MazeVisualizer implements KeyListener {
 	
 	private Maze maze;
 	private boolean[][] cells;
@@ -20,6 +23,7 @@ public class MazeVisualizer {
 	
 	private JFrame mainFrame;
 	private MazePanel mazeDisplay;
+	private Point userLoc;
 	
 	public MazeVisualizer(Maze maze) {
 		this.maze = maze;
@@ -30,8 +34,8 @@ public class MazeVisualizer {
 		buildMaze();
 		
 		mainFrame = new JFrame();
-		mazeDisplay = new MazePanel(size, size, cells);
-		
+		mazeDisplay = new MazePanel(size, size, cells);	
+		userLoc = new Point(0, 1);
 		
 		initializeUI();
 	}
@@ -45,6 +49,8 @@ public class MazeVisualizer {
 		mainFrame.setLocationRelativeTo(null);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.add(mazeDisplay);
+		mainFrame.addKeyListener(this);
+		mazeDisplay.setUserLoc(userLoc);
 	}
 	
 	/**
@@ -108,4 +114,51 @@ public class MazeVisualizer {
 	public void run() {
 		mainFrame.setVisible(true);
 	}
+	
+	public boolean isValid(int x, int y) {
+		return (x > 0 && x < gridSize && y > 0 && y < gridSize && !cells[x][y]);
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		if (e.getKeyChar() == 's') {
+			if (isValid(userLoc.x + 1, userLoc.y)) {
+				System.out.println("valid");
+				userLoc.setLocation(userLoc.x + 1, userLoc.y);
+				mazeDisplay.setUserLoc(userLoc);
+			}
+		} else if (e.getKeyChar() == 'w') {
+			if (isValid(userLoc.x - 1, userLoc.y)) {
+				System.out.println("valid");
+				userLoc.setLocation(userLoc.x - 1, userLoc.y);
+				mazeDisplay.setUserLoc(userLoc);
+			}
+		} else if (e.getKeyChar() == 'a') {
+			if (isValid(userLoc.x, userLoc.y - 1)) {
+				System.out.println("valid");
+				userLoc.setLocation(userLoc.x, userLoc.y - 1);
+				mazeDisplay.setUserLoc(userLoc);
+			}	
+		} else if (e.getKeyChar() == 'd') {
+			if (isValid(userLoc.x, userLoc.y + 1)) {
+				System.out.println("valid");
+				userLoc.setLocation(userLoc.x, userLoc.y + 1);
+				mazeDisplay.setUserLoc(userLoc);
+			}			
+		}
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
 }
