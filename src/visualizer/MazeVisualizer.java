@@ -1,17 +1,18 @@
 package visualizer;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Point;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.Observable;
-import java.util.Observer;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Queue;
 
 import javax.swing.*;
 
-import generator.MazeGenerator;
 import maze.Maze;
 import maze.Wall;
 
@@ -40,6 +41,7 @@ public class MazeVisualizer implements KeyListener {
 		userLoc = new Point(0, 1);
 		
 		initializeUI();
+		solve();
 	}
 		
 	/**
@@ -96,18 +98,71 @@ public class MazeVisualizer implements KeyListener {
 				cells[xActualRow + 1][xActualCol + 1] = true;
 			}
 		}
-		
-		
+			
 		// Entrance and exit to remain open
 		cells[0][1] = false;
 		cells[gridSize - 1][gridSize - 2] = false;
 	}
 	
 	/**
-	 * Solves the maze and sends the path to the visualizer
+	 * Solves the maze using BFS
 	 */
 	private void solve() {
-		// TODO
+		Queue<Point> queue = new LinkedList<>();
+		HashMap<Point, Boolean> visited = new HashMap<>(); // Map to store visited points
+		HashMap<Point, Point> parents = new HashMap<>(); // Map to store parents of given nodes
+		
+		Point start = new Point(0, 1); // Set beginning node
+		parents.put(start, null); // Add start node's parent as null
+		queue.offer(start); // Offer start node to the queue
+		
+		while (!queue.isEmpty()) {
+			Point current = queue.poll();
+			visited.put(current, true);
+			
+			if (current.x == gridSize - 1 && current.y == gridSize - 2) {
+				break;
+			}
+			
+			// add all neighbors to queue and add this node as their parent
+			Point leftNeighbor = new Point(current.x, current.y - 1);
+			Point rightNeighbor = new Point(current.x, current.y + 1);
+			Point topNeighbor = new Point(current.x - 1, current.y);
+			Point bottomNeighbor = new Point(current.x + 1, current.y);
+			
+			if (isValid(leftNeighbor.x, leftNeighbor.y) && !cells[leftNeighbor.x][leftNeighbor.y] && !visited.containsKey(leftNeighbor)) {
+				visited.put(leftNeighbor, true);
+				parents.put(leftNeighbor, current);
+				queue.offer(leftNeighbor);
+			}
+			
+			if (isValid(rightNeighbor.x, rightNeighbor.y) && !cells[rightNeighbor.x][rightNeighbor.y] && !visited.containsKey(rightNeighbor)) {
+				visited.put(rightNeighbor, true);
+				parents.put(rightNeighbor, current);
+				queue.offer(rightNeighbor);
+			}
+			
+			if (isValid(topNeighbor.x, topNeighbor.y) && !cells[topNeighbor.x][topNeighbor.y] && !visited.containsKey(topNeighbor)) {
+				visited.put(topNeighbor, true);
+				parents.put(topNeighbor, current);
+				queue.offer(topNeighbor);
+			}
+			
+			if (isValid(bottomNeighbor.x, bottomNeighbor.y) && !cells[bottomNeighbor.x][bottomNeighbor.y] && !visited.containsKey(bottomNeighbor)) {
+				visited.put(bottomNeighbor, true);
+				parents.put(bottomNeighbor, current);
+				queue.offer(bottomNeighbor);
+			}
+		}
+		
+		HashSet<Point> solution = new HashSet<>();
+		Point current = new Point(gridSize - 1, gridSize - 2); // Backtrack path from the last point
+		while (current != start) {
+			Point parent = parents.get(current);
+			solution.add(parent);
+			current = parent;
+		}
+		mazeDisplay.offerSolution(solution);
 	}
 	
 	/**

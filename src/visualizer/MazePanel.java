@@ -4,9 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.Rectangle;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 import javax.swing.JPanel;
 
@@ -14,6 +13,7 @@ public class MazePanel extends JPanel {
 	
 	private static final Color HAWKS = new Color(253, 210, 18, 255);
 	private static final Color COOL_BLU = new Color(50, 100, 255);
+	private static final Color SOLUTION = Color.GREEN;
 	
 	private int rows;
 	private int cols;
@@ -21,8 +21,9 @@ public class MazePanel extends JPanel {
 	private int gridCols;
 	
 	private boolean[][] obstacles;
-	// private ArrayList<CJRectangle> cells;
+	private HashSet<Point> solution;
 	private Point userLoc;
+	private Point check;
 	
 	/**
 	 * Constructor for MazePanel
@@ -37,8 +38,11 @@ public class MazePanel extends JPanel {
 		gridCols = cols * 2 + 1;
 		
 		this.obstacles = obstacles;
-		// cells = new ArrayList<>();
+		solution = null;
 		userLoc = null;
+		check = new Point(-1, -1); // We are using this point to prevent the program from creating a new point
+								   // every time we check if a point is in the solution, this prevents unnecessary
+								   // garbage collection
 	}
 	
 	/**
@@ -48,6 +52,14 @@ public class MazePanel extends JPanel {
 	public void setUserLoc(Point p) {
 		userLoc = p;
 		repaint();
+	}
+	
+	/**
+	 * Offers the solution to the MazeVisualizer
+	 * @param solution the HashSet containing all points in the solution
+	 */
+	public void offerSolution(HashSet<Point> solution) {
+		this.solution = solution;
 	}
 	
 	@Override
@@ -81,6 +93,14 @@ public class MazePanel extends JPanel {
         			color = Color.BLACK;
         		} else {
         			color = Color.WHITE;
+        		}
+        		
+        		if (solution != null) {
+        			check.x = i;
+        			check.y = j;
+        			if (solution.contains(check)) {
+        				color = SOLUTION;
+        			}
         		}
         		
         		if (userLoc != null && i == userLoc.x && j == userLoc.y) {
