@@ -27,6 +27,8 @@ public class MazeVisualizer implements KeyListener {
 	private JFrame mainFrame;
 	private MazePanel mazeDisplay;
 	private Point userLoc;
+	private HashSet<Point> solution;
+	private boolean displayingSolution;
 	
 	public MazeVisualizer(Maze maze) {
 		this.maze = maze;
@@ -39,6 +41,8 @@ public class MazeVisualizer implements KeyListener {
 		mainFrame = new JFrame();
 		mazeDisplay = new MazePanel(size, size, cells);	
 		userLoc = new Point(0, 1);
+		solution = new HashSet<>();
+		displayingSolution = false;
 		
 		initializeUI();
 		solve();
@@ -124,7 +128,7 @@ public class MazeVisualizer implements KeyListener {
 				break;
 			}
 			
-			// add all neighbors to queue and add this node as their parent
+			// add all valid untouched neighbors to queue and add this node as their parent
 			Point leftNeighbor = new Point(current.x, current.y - 1);
 			Point rightNeighbor = new Point(current.x, current.y + 1);
 			Point topNeighbor = new Point(current.x - 1, current.y);
@@ -155,14 +159,13 @@ public class MazeVisualizer implements KeyListener {
 			}
 		}
 		
-		HashSet<Point> solution = new HashSet<>();
 		Point current = new Point(gridSize - 1, gridSize - 2); // Backtrack path from the last point
+		solution.add(current);
 		while (current != start) {
 			Point parent = parents.get(current);
 			solution.add(parent);
 			current = parent;
-		}
-		mazeDisplay.offerSolution(solution);
+		}		
 	}
 	
 	/**
@@ -199,6 +202,14 @@ public class MazeVisualizer implements KeyListener {
 				userLoc.setLocation(userLoc.x, userLoc.y + 1);
 				mazeDisplay.setUserLoc(userLoc);
 			}			
+		} else if (e.getKeyChar() == 'f') {
+			if (!displayingSolution) {
+				displayingSolution = true;
+				mazeDisplay.offerSolution(solution);
+			} else {
+				displayingSolution = false;
+				mazeDisplay.offerSolution(null);
+			}
 		}
 	}
 

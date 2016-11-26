@@ -56,10 +56,12 @@ public class MazePanel extends JPanel {
 	
 	/**
 	 * Offers the solution to the MazeVisualizer
-	 * @param solution the HashSet containing all points in the solution
+	 * If a null value is passed into the function, the solution will not display
+	 * @param solution the HashSet containing all points in the solution.
 	 */
 	public void offerSolution(HashSet<Point> solution) {
 		this.solution = solution;
+		repaint();
 	}
 	
 	@Override
