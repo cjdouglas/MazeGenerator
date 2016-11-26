@@ -17,9 +17,11 @@ public class MazePanel extends JPanel {
 	
 	private int rows;
 	private int cols;
+	private int gridRows;
+	private int gridCols;
 	
 	private boolean[][] obstacles;
-	private ArrayList<CJRectangle> cells;
+	// private ArrayList<CJRectangle> cells;
 	private Point userLoc;
 	
 	/**
@@ -31,12 +33,18 @@ public class MazePanel extends JPanel {
 	public MazePanel(int rows, int cols, boolean[][] obstacles) {
 		this.rows = rows;
 		this.cols = cols;
+		gridRows = rows * 2 + 1;
+		gridCols = cols * 2 + 1;
 		
 		this.obstacles = obstacles;
-		cells = new ArrayList<>();
+		// cells = new ArrayList<>();
 		userLoc = null;
 	}
 	
+	/**
+	 * Sets the user location to a new point
+	 * @param p the point representing the new user location
+	 */
 	public void setUserLoc(Point p) {
 		userLoc = p;
 		repaint();
@@ -50,42 +58,38 @@ public class MazePanel extends JPanel {
 		int width = getWidth();
 		int height = getHeight();
 		
-		int gridRows = rows * 2 + 1;
-		int gridCols = cols * 2 + 1;
-		
 		int cellWidth = width / gridRows;
 		int cellHeight = height / gridCols;
 		
 		int offsetX = (width - (gridRows * cellWidth)) / 2;
 		int offsetY = (height - (gridCols * cellHeight)) / 2;
-        
+		
         for (int i = 0; i < gridRows; i++) {
         	for (int j = 0; j < gridCols; j++) {
-        		CJRectangle rect = new CJRectangle(offsetX + (j * cellWidth), offsetY + (i * cellHeight), 
-        				cellWidth, cellHeight);
+        		
+        		int x = offsetX + (j * cellWidth);
+        		int y = offsetY + (i * cellHeight);
+        		int w = cellWidth;
+        		int h = cellHeight;
+        		Color color = Color.BLACK;
         		
         		if (i == 0 && j == 1) {
-        			rect.setColor(Color.GREEN);
+        			color = Color.GREEN;
         		} else if (i == gridRows - 1 && j == gridCols - 2) {
-        			rect.setColor(Color.RED);
+        			color = Color.RED;
         		} else if (obstacles[i][j]) {
-        			rect.setColor(Color.BLACK);
+        			color = Color.BLACK;
         		} else {
-        			rect.setColor(COOL_BLU);
+        			color = Color.WHITE;
         		}
         		
         		if (userLoc != null && i == userLoc.x && j == userLoc.y) {
-        			rect.setColor(Color.ORANGE);
+        			color = Color.ORANGE;
         		}
         		
-        		cells.add(rect);
+        		g2d.setColor(color);
+        		g2d.fillRect(x, y, w, h);
         	}
         }
-        
-        for (CJRectangle rect : cells) {
-        	g2d.setColor(rect.getColor());
-        	g2d.fillRect(rect.x, rect.y, rect.width, rect.height);
-        }
-        
 	}
 }

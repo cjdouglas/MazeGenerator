@@ -6,6 +6,8 @@ import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.*;
 
@@ -54,7 +56,7 @@ public class MazeVisualizer implements KeyListener {
 	}
 	
 	/**
-	 * Initializes the outer border of the grid to be obstacle cells
+	 * Initializes the maze 
 	 */
 	private void buildMaze() {
 		
@@ -119,29 +121,26 @@ public class MazeVisualizer implements KeyListener {
 		return (x > 0 && x < gridSize && y > 0 && y < gridSize && !cells[x][y]);
 	}
 
+	
 	@Override
 	public void keyTyped(KeyEvent e) {
 		if (e.getKeyChar() == 's') {
 			if (isValid(userLoc.x + 1, userLoc.y)) {
-				System.out.println("valid");
 				userLoc.setLocation(userLoc.x + 1, userLoc.y);
 				mazeDisplay.setUserLoc(userLoc);
 			}
 		} else if (e.getKeyChar() == 'w') {
 			if (isValid(userLoc.x - 1, userLoc.y)) {
-				System.out.println("valid");
 				userLoc.setLocation(userLoc.x - 1, userLoc.y);
 				mazeDisplay.setUserLoc(userLoc);
 			}
 		} else if (e.getKeyChar() == 'a') {
 			if (isValid(userLoc.x, userLoc.y - 1)) {
-				System.out.println("valid");
 				userLoc.setLocation(userLoc.x, userLoc.y - 1);
 				mazeDisplay.setUserLoc(userLoc);
 			}	
 		} else if (e.getKeyChar() == 'd') {
 			if (isValid(userLoc.x, userLoc.y + 1)) {
-				System.out.println("valid");
 				userLoc.setLocation(userLoc.x, userLoc.y + 1);
 				mazeDisplay.setUserLoc(userLoc);
 			}			
@@ -159,6 +158,4 @@ public class MazeVisualizer implements KeyListener {
 		// TODO Auto-generated method stub
 		
 	}
-	
-	
 }
