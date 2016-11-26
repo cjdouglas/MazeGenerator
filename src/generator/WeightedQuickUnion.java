@@ -77,7 +77,7 @@ public class WeightedQuickUnion {
 	
 	/**
 	 * Returns the size of this WeightedQuickUnion
-	 * @return The Size of this WeightedQuickUnion
+	 * @return the size of this WeightedQuickUnion
 	 */
 	public int size() {
 		return uSize;
